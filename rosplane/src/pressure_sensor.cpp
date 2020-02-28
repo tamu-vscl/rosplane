@@ -18,7 +18,7 @@ pressure_sensor::pressure_sensor()
     static_device_.page_bytes = 16;
   }
 
-  if ((differential_bus_ = i2c_open("/dev/i2c-1")) == -1)
+  if ((differential_bus_ = i2c_open("/dev/i2c-0")) == -1)
   {
   	ROS_ERROR("Failed to connect to I2C differential pressure sensor!");
   }
@@ -55,7 +55,7 @@ void pressure_sensor::read_i2c()
 
   if ((i2c_ioctl_read(&static_device_, 0x0, buffer, size)) != 2) /* From i2c 0x0 address read 256 bytes data to buffer */
   {
-    ROS_ERROR("Failed to read data from i2c bus.");
+    ROS_ERROR("Failed to read data from static i2c bus.");
   }
   else
   {
@@ -67,7 +67,7 @@ void pressure_sensor::read_i2c()
 
   if ((i2c_ioctl_read(&differential_device_, 0x0, buffer, size)) != 2) /* From i2c 0x0 address read 256 bytes data to buffer */
   {
-    ROS_ERROR("Failed to read data from i2c bus.");
+    ROS_ERROR("Failed to read data from differential i2c bus.");
   }
   else
   {
