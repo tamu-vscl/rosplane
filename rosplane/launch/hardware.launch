@@ -1,0 +1,28 @@
+<!-- This is a launch file that runs the bare minimum requirements to get -->
+<!-- gazebo running for a fixed-wing aircraft -->
+
+<launch>
+  <!-- Load Global Parameters for this MAV -->
+  <rosparam command="load" file="$(find rosplane)/param/aerosonde.yaml"/>
+
+  <node name="gps" pkg="ublox_gps" type="ublox_gps" output="screen">
+    <param name="device" value="/dev/ttyACM1"/>
+  </node>
+
+  <node name="rosflight" pkg="rosflight" type="rosflight_io" output="screen">
+    <param name="port" value="/dev/ttyACM0"/>
+  </node>
+
+  <node name="autopilot" pkg="rosplane" type="rosplane_controller" output="screen"/>
+
+  <node name="estimator" pkg="rosplane" type="rosplane_estimator" output="screen">
+    <param name="gps_topic" value="/gps/fix"/>
+    <param name="vel_topic" value="/gps/fix_velocity"/>
+  </node>
+
+  <node name="pathfollower" pkg="rosplane" type="rosplane_path_follower" output="screen"/>
+
+  <node name="pathmanager" pkg="rosplane" type="rosplane_path_manager" output="screen"/>
+
+  <node name="pathplanner" pkg="rosplane" type="rosplane_path_planner" output="screen"/>
+</launch>

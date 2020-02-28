@@ -13,7 +13,7 @@
 #include <rosplane_msgs/State.h>
 #include <sensor_msgs/NavSatFix.h>
 #include <sensor_msgs/Imu.h>
-#include <geometry_msgs/TwistStamped.h>
+#include <geometry_msgs/TwistWithCovarianceStamped.h>
 #include <rosflight_msgs/Barometer.h>
 #include <rosflight_msgs/Airspeed.h>
 #include <rosflight_msgs/Status.h>
@@ -101,7 +101,7 @@ private:
 
   void update(const ros::TimerEvent &);
   void gnssFixCallback(const sensor_msgs::NavSatFix &msg);
-  void gnssVelCallback(const geometry_msgs::TwistStamped &msg);
+  void gnssVelCallback(const geometry_msgs::TwistWithCovarianceStamped &msg);
   void imuCallback(const sensor_msgs::Imu &msg);
   void baroAltCallback(const rosflight_msgs::Barometer &msg);
   void airspeedCallback(const rosflight_msgs::Airspeed &msg);

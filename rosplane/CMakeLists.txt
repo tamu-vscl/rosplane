@@ -86,3 +86,10 @@ add_executable(rosplane_path_planner
             src/path_planner.cpp)
 add_dependencies(rosplane_path_planner ${catkin_EXPORTED_TARGETS})
 target_link_libraries(rosplane_path_planner ${catkin_LIBRARIES})
+
+## Declare a C++ executable
+add_executable(rosplane_pressure_sensor
+          src/pressure_sensor.cpp
+          src/i2c.c)
+add_dependencies(rosplane_pressure_sensor ${catkin_EXPORTED_TARGETS})
+target_link_libraries(rosplane_pressure_sensor ${catkin_LIBRARIES})

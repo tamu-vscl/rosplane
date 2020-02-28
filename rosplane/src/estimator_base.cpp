@@ -118,11 +118,11 @@ void estimator_base::gnssFixCallback(const sensor_msgs::NavSatFix &msg)
     input_.gps_new = true;
   }
 }
-void estimator_base::gnssVelCallback(const geometry_msgs::TwistStamped &msg)
+void estimator_base::gnssVelCallback(const geometry_msgs::TwistWithCovarianceStamped &msg)
 {
-  double v_n = msg.twist.linear.x;
-  double v_e = msg.twist.linear.y;
-  double v_d = msg.twist.linear.z;
+  double v_n = msg.twist.twist.linear.x;
+  double v_e = msg.twist.twist.linear.y;
+  double v_d = msg.twist.twist.linear.z;
   double ground_speed = sqrt(v_n * v_n + v_e * v_e);
   double course = atan2(v_e, v_n); //Does this need to be in a specific range? All uses seem to accept anything.
   input_.gps_Vg = ground_speed;
