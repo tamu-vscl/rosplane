@@ -29,10 +29,10 @@ private:
   float rate_;
   float counts_max_ = 14745.0;
   float counts_min_ = 1638.0;
-  float static_pres_max_ = 120000;
-  float static_pres_min_ = 70000;
-  float differential_pres_max_ = 2000;
-  float differential_pres_min_ = 0;
+  float static_pres_max_ = 120000.0;
+  float static_pres_min_ = 70000.0;
+  float differential_pres_max_ = 2000.0;
+  float differential_pres_min_ = 0.0;
 };
 
 #endif
