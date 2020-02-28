@@ -366,4 +366,3 @@ static void i2c_delay(unsigned char msec)
 {
     usleep(msec * 1e3);
 }
-

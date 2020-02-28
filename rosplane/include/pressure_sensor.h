@@ -18,8 +18,7 @@ private:
   ros::Publisher speed_pub_;
   void read_i2c();
   void publish_data(const ros::TimerEvent& e);
-  int static_bus_;
-  int differential_bus_;
+  int bus_;
   I2CDevice static_device_;
   I2CDevice differential_device_;
   int static_pressure_;

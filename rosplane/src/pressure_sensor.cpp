@@ -5,30 +5,23 @@
 pressure_sensor::pressure_sensor()
 {
   /* Open i2c bus /dev/i2c-0 */
-  if ((static_bus_ = i2c_open("/dev/i2c-0")) == -1)
+  if ((bus_ = i2c_open("/dev/i2c-0")) == -1)
   {
   	ROS_ERROR("Failed to connect to I2C static pressure sensor!");
   }
   else
   {
     memset(&static_device_, 0, sizeof(static_device_));
-    static_device_.bus = static_bus_;
+    static_device_.bus = bus_;
     static_device_.addr = 0x10;
     static_device_.iaddr_bytes = 0;
-    static_device_.page_bytes = 16;
-  }
+    static_device_.page_bytes = 8;
 
-  if ((differential_bus_ = i2c_open("/dev/i2c-0")) == -1)
-  {
-  	ROS_ERROR("Failed to connect to I2C differential pressure sensor!");
-  }
-  else
-  {
     memset(&differential_device_, 0, sizeof(static_device_));
-    static_device_.bus = static_bus_;
+    static_device_.bus = bus_;
     static_device_.addr = 0x11;
     static_device_.iaddr_bytes = 0;
-    static_device_.page_bytes = 16;
+    static_device_.page_bytes = 8;
   }
 
   baro_pub_ = nh_.advertise<rosflight_msgs::Barometer>("baro",1);
@@ -41,8 +34,7 @@ pressure_sensor::pressure_sensor()
     read_i2c();
   }
 
-  i2c_close(static_bus_);
-  i2c_close(differential_bus_);
+  i2c_close(bus_);
 }
 
 void pressure_sensor::read_i2c()
@@ -55,7 +47,7 @@ void pressure_sensor::read_i2c()
 
   if ((i2c_ioctl_read(&static_device_, 0x0, buffer, size)) != 2) /* From i2c 0x0 address read 256 bytes data to buffer */
   {
-    ROS_ERROR("Failed to read data from static i2c bus.");
+    ROS_ERROR("Failed to read data from static i2c bus. %d",static_device_.bus);
   }
   else
   {
@@ -67,7 +59,7 @@ void pressure_sensor::read_i2c()
 
   if ((i2c_ioctl_read(&differential_device_, 0x0, buffer, size)) != 2) /* From i2c 0x0 address read 256 bytes data to buffer */
   {
-    ROS_ERROR("Failed to read data from differential i2c bus.");
+    ROS_ERROR("Failed to read data from differential i2c bus. %d",differential_device_.bus);
   }
   else
   {
