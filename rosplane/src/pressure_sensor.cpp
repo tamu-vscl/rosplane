@@ -55,7 +55,7 @@ void pressure_sensor::read_i2c()
     float temp_count = (float)((buffer[2]<<3)+((buffer[3] & 0b11100000)>>5));
     static_pressure_ = (pres_count-counts_max_)/(counts_max_-counts_min_)*(static_pres_max_-static_pres_min_)+static_pres_min_; //TODO Add conversion and check bit length above.
     static_temperature_ = temp_count*200.0/2048.0-50.0;
-    ROS_INFO("Differential i2c bus pressure: %f tempurature: %f",static_pressure_,static_temperature_);
+    ROS_INFO("Static i2c bus pressure: %f tempurature: %f",static_pressure_,static_temperature_);
   }
 
   if ((i2c_ioctl_read(&differential_device_, 0x0, buffer, size)) != size) /* From i2c 0x0 address read 256 bytes data to buffer */
