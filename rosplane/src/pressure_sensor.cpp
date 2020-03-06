@@ -17,7 +17,7 @@ pressure_sensor::pressure_sensor()
     static_device_.iaddr_bytes = 0;
     static_device_.page_bytes = 8;
 
-    memset(&differential_device_, 0, sizeof(static_device_));
+    memset(&differential_device_, 0, sizeof(differential_device_));
     differential_device_.bus = bus_;
     differential_device_.addr = 0x11;
     differential_device_.iaddr_bytes = 0;
