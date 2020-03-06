@@ -21,10 +21,10 @@ private:
   int bus_;
   I2CDevice static_device_;
   I2CDevice differential_device_;
-  int static_pressure_=0;
-  int differential_pressure_=0;
-  int static_temperature_=0;
-  int differential_temperature_=0;
+  float static_pressure_=0;
+  float differential_pressure_=0;
+  float static_temperature_=0;
+  float differential_temperature_=0;
   float rate_;
   float counts_max_ = 14745.0;
   float counts_min_ = 1638.0;

@@ -53,7 +53,7 @@ void pressure_sensor::read_i2c()
   {
     float pres_count = (float)(((buffer[0] & 0b00111111)<<8)+buffer[1]);
     float temp_count = (float)((buffer[2]<<3)+((buffer[3] & 0b11100000)>>5));
-    static_pressure_ = (pres_count-counts_max_)/(counts_max_-counts_min_)*(static_pres_max_-static_pres_min_)+static_pres_min_; //TODO Add conversion and check bit length above.
+    static_pressure_ = (float)(pres_count-counts_max_)/(float)(counts_max_-counts_min_)*(static_pres_max_-static_pres_min_)+static_pres_min_; //TODO Add conversion and check bit length above.
     static_temperature_ = temp_count*200.0/2048.0-50.0;
     ROS_INFO("Static i2c bus pressure: %f tempurature: %f",static_pressure_,static_temperature_);
   }
@@ -66,7 +66,7 @@ void pressure_sensor::read_i2c()
   {
     float pres_count = (float)(((buffer[0] & 0b00111111)<<8)+buffer[1]);
     float temp_count = (float)((buffer[2]<<3)+((buffer[3] & 0b11100000)>>5));
-    differential_pressure_ = (pres_count-counts_max_)/(counts_max_-counts_min_)*(differential_pres_max_-differential_pres_min_)+differential_pres_min_; //TODO Add conversion and check bit length above.
+    differential_pressure_ = (float)(pres_count-counts_max_)/(float)(counts_max_-counts_min_)*(differential_pres_max_-differential_pres_min_)+differential_pres_min_; //TODO Add conversion and check bit length above.
     differential_temperature_ = temp_count*200.0/2048.0-50.0;
     ROS_INFO("Differential i2c bus pressure: %f tempurature: %f",differential_pressure_,differential_temperature_);
   }
