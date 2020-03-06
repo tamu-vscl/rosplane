@@ -45,7 +45,7 @@ void pressure_sensor::read_i2c()
   ssize_t size = sizeof(buffer);
   memset(buffer, 0, sizeof(buffer));
 
-  if ((i2c_ioctl_read(&static_device_, 0x0, buffer, size)) != 2) /* From i2c 0x0 address read 256 bytes data to buffer */
+  if ((i2c_ioctl_read(&static_device_, 0x0, buffer, size)) != size) /* From i2c 0x0 address read 256 bytes data to buffer */
   {
     ROS_ERROR("Failed to read data from static i2c bus. %d",static_device_.bus);
   }
@@ -58,7 +58,7 @@ void pressure_sensor::read_i2c()
     ROS_INFO("Differential i2c bus pressure: %f tempurature: %f",static_pressure_,static_temperature_);
   }
 
-  if ((i2c_ioctl_read(&differential_device_, 0x0, buffer, size)) != 2) /* From i2c 0x0 address read 256 bytes data to buffer */
+  if ((i2c_ioctl_read(&differential_device_, 0x0, buffer, size)) != size) /* From i2c 0x0 address read 256 bytes data to buffer */
   {
     ROS_ERROR("Failed to read data from differential i2c bus. %d",differential_device_.bus);
   }
